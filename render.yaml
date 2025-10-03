@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: librarium
+    env: python
+    plan: starter
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn run:web_application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: DATA_DIR
+        value: "/opt/render/project/src/data"
+      - key: SECRET_KEY
+        value: "troque-isto-por-uma-string-forte"
+    disk:
+      name: app-data
+      mountPath: "/opt/render/project/src/data"
+      sizeGB: 2
